@@ -129,19 +129,19 @@
 
     
     // Redirect to the registration page when clicked
-        document.getElementById("registerProduct").addEventListener("click", function () {
-            const serialNumber = document.getElementById("serialNumber").value.trim();
+       document.getElementById("registerProduct").addEventListener("click", function () {
+        const serialNumber = document.getElementById("serialNumber").value.trim();
 
-            if (serialNumber === "") {
-                alert("Please enter your serial number.");
-                return;
-            }
+        if (serialNumber === "") {
+            alert("Please enter your serial number.");
+            return;
+        }
 
-            const registerUrl = new URL("http://api.focusrite-novation.com/register?upn=");
-            registerUrl.searchParams.set("serial", serialNumber);
+        const registerUrl = new URL("http://api.focusrite-novation.com/register");
+        registerUrl.searchParams.set("upn", serialNumber);
 
-            window.location.href = registerUrl.toString();
-        });
+        window.location.href = registerUrl.toString();
+    });
 
     </script>
 
