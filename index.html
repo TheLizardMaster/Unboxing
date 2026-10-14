@@ -137,7 +137,7 @@
             return;
         }
 
-        const registerUrl = new URL("http://api.focusrite-novation.com/register");
+        const registerUrl = new URL("https://api.focusrite-novation.com/register");
         registerUrl.searchParams.set("upn", serialNumber);
 
         window.location.href = registerUrl.toString();
