@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bass Station II Get Started</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -26,7 +26,7 @@
 
         <div class="sectionTwo">
 
-            <div class="sectionTwoItems mobileSpace">
+            <div class="sectionTwoItems">
                 <h1 class="blueText">Bass Station II</h1>
                 <img src="./images/bassstation2.png" class="bs2Style">
                 <p class="blueText">Sign into your Collective account and register your Bass Station to access your included software bundle, exclusive discounts, faster support and stay up to date with the latest news and updates for your synth.</p>
@@ -42,7 +42,7 @@
 
             <div class="sectionTwoItems borderOutline">
                 <h2 class="blueText">Serial Number:</h2>
-                <input class="serialInput">
+                <input class="serialInput" type="text" id="serialNumber">
             <div class="oneButton">Register Product</div>
             </div>
             
@@ -82,7 +82,7 @@
         <div class="sectionTwo">
 
             <div class="sectionTwoItems mobileSpace">
-                <h2 class="blueText">Latest Firmware Update:</h2>
+                <h2 class="blueText">Firmware Update:</h2>
                 <iframe class="fluffImageStyle fluffImageBorder" width="560" height="315" src="https://www.youtube.com/embed/XP3t857OI7o?si=7ZNUkpdeNSheq95o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 <p class="blueText">You can update your Novation Bass Station II to firmware v4.14 to get AFX Mode by connecting the synthesizer to your computer via USB and using the Novation Components manager.</p>
                 <div class="firmwareButton">
@@ -116,6 +116,17 @@
         
 
     </div>
+
+    <!-- AUTO-POPULATE SERIAL NUMBER FROM URL -->
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const serial = params.get("serial");
+
+        if (serial !== null) {
+            document.getElementById("serialNumber").value = serial;
+        }
+    </script>
 
 </body>
 
