@@ -42,8 +42,8 @@
 
             <div class="sectionTwoItems borderOutline">
                 <h2 class="blueText">Serial Number:</h2>
-                <input class="serialInput" type="text" id="serialNumber">
-            <div class="oneButton">Register Product</div>
+                <input class="serialInput blueText" type="text" id="serialNumber">
+            <div class="oneButton" id="registerProduct">Register Product</div>
             </div>
             
         </div>
@@ -117,7 +117,7 @@
 
     </div>
 
-    <!-- AUTO-POPULATE SERIAL NUMBER FROM URL -->
+    <!-- AUTO-POPULATE SERIAL NUMBER AND REGISTER PRODUCT -->
 
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -126,6 +126,23 @@
         if (serial !== null) {
             document.getElementById("serialNumber").value = serial;
         }
+
+    
+    // Redirect to the registration page when clicked
+        document.getElementById("registerProduct").addEventListener("click", function () {
+            const serialNumber = document.getElementById("serialNumber").value.trim();
+
+            if (serialNumber === "") {
+                alert("Please enter your serial number.");
+                return;
+            }
+
+            const registerUrl = new URL("http://api.focusrite-novation.com/register?upn=");
+            registerUrl.searchParams.set("serial", serialNumber);
+
+            window.location.href = registerUrl.toString();
+        });
+
     </script>
 
 </body>
