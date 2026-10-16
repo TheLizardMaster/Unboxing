@@ -123,15 +123,28 @@
 
     const serialInput = document.getElementById("serialNumber");
 
-    // Populate the serial number if one is provided in the URL
+    // Populate the serial number from the URL
     serialInput.value = serial;
+
+    // Automatically open adam.html if the URL serial starts with XF
+    if (serial.toUpperCase().startsWith("XF")) {
+        window.location.replace(
+            "https://thelizardmaster.github.io/Unboxing/adam.html?serial=" +
+            encodeURIComponent(serial)
+        );
+    }
 
     // Handle the Register Product button
     document.getElementById("registerProduct").addEventListener("click", function () {
         const serialNumber = serialInput.value.trim();
         const prefix = serialNumber.toUpperCase();
 
-        // XF serial numbers go to adam.html
+        if (serialNumber === "") {
+            window.location.href =
+                "https://thelizardmaster.github.io/Unboxing/?serial=";
+            return;
+        }
+
         if (prefix.startsWith("XF")) {
             window.location.href =
                 "https://thelizardmaster.github.io/Unboxing/adam.html?serial=" +
@@ -139,16 +152,17 @@
             return;
         }
 
-        // Empty serial numbers and Z1 serial numbers go to index.html
-        if (serialNumber === "" || prefix.startsWith("Z1")) {
+        if (prefix.startsWith("Z1")) {
             window.location.href =
-                "https://thelizardmaster.github.io/Unboxing?serial=" +
+                "https://thelizardmaster.github.io/Unboxing/?serial=" +
                 encodeURIComponent(serialNumber);
             return;
         }
 
-        // All other serial numbers go to the existing registration page
-        const registerUrl = new URL("https://api.focusrite-novation.com/register");
+        // All other serial numbers use the existing registration page
+        const registerUrl = new URL(
+            "https://api.focusrite-novation.com/register"
+        );
         registerUrl.searchParams.set("upn", serialNumber);
         window.location.href = registerUrl.toString();
     });
