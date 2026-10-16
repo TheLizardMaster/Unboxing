@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADAM D3V Get Started</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CONTAINER -->
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <img src="./images/Collective.svg" class="imgStyle">
+
+        </div>
+
+        <!-- SECTION ONE -->
+
+        <div class="sectionTwo">
+
+            <div class="sectionTwoItems">
+                <h1 class="blueText">ADAM Audio D3V</h1>
+                <img src="./images/d3v.png" class="bs2Style">
+                <p class="blueText">Sign into your Collective account and register your D3V monitors to activate your 5 year warranty and access your included software bundle, exclusive discounts, faster support and stay up to date with the latest news and updates for your monitors.</p>
+            </div>
+
+            
+            
+        </div>
+
+        <!-- SECTION TWO -->
+
+        <div class="sectionTwo">
+
+            <div class="sectionTwoItems borderOutline">
+                <h2 class="blueText">Serial Number:</h2>
+                <input class="serialInput blueText" type="text" id="serialNumber">
+            <div class="oneButton" id="registerProduct">Register Product</div>
+            </div>
+            
+        </div>
+
+        <!-- SECTION THREE -->
+
+        <div class="sectionTwo">
+
+            <div class="sectionTwoItems">
+                <h2 class="blueText">Software Bundle:</h2>
+                <a href="http://id.focusritegroup.com/my-software">
+                    <img src="./images/adamsoftware.png" class="fluffImageStyle fluffImageBorder">
+                </a>
+            </div>
+            
+        </div>
+
+        <!-- SECTION FOUR -->
+
+        <div class="sectionTwo">
+
+            <div class="sectionTwoItems">
+
+                <h2 class="blueText">Quick Start Video:</h2>
+               
+                <iframe class="fluffImageStyle fluffImageBorder" width="560" height="315" src="https://www.youtube.com/embed/VwEBTc5P9Z0?si=MtpLpMQCMgXOO-2V" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+            </div>
+            
+        </div>
+
+
+         <!-- SECTION FIVE -->
+
+        <div class="sectionTwo">
+
+            <div class="sectionTwoItems mobileSpace">
+                <h2 class="blueText">Firmware Update:</h2>
+                <iframe class="fluffImageStyle fluffImageBorder" width="560" height="315" src="https://www.youtube.com/embed/_cgnbPahbaU?si=KMM78uyi0kbYtTfi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <p class="blueText">Keep your product up to date with the D3V Firmware Updater</p>
+                <div class="firmwareButton">
+                    
+                    <a href="https://www.adam-audio.com/en/news/industry/d3v-firmware-updater/" class="anchorDecoration blueText">Update Firmware</a>
+                
+                </div>
+            </div>
+
+            
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="sectionThree">
+
+            <div class="sectionThreeItems">
+               
+                <div class="footerButton">
+                    <a href="https://www.adam-audio.com/content/uploads/2025/05/adam-audio-d3v-desktop-monitor-user-manual-english.pdf" class="blueText anchorDecoration">User Guide</a>
+                </div>
+                 
+                <div class="footerButton">
+                    <a href="https://downloads.adam-audio.com/adam-audio/desktop/d3v" class="blueText anchorDecoration">Drivers/Downloads</a>
+                </div>
+
+            </div>
+            
+        </div>
+        
+
+    </div>
+
+    <!-- AUTO-POPULATE SERIAL NUMBER AND REGISTER PRODUCT -->
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const serial = params.get("serial");
+
+        if (serial !== null) {
+            document.getElementById("serialNumber").value = serial;
+        }
+
+    
+    // Redirect to the registration page when clicked
+       document.getElementById("registerProduct").addEventListener("click", function () {
+        const serialNumber = document.getElementById("serialNumber").value.trim();
+
+        if (serialNumber === "") {
+            alert("Please enter your serial number.");
+            return;
+        }
+
+        const registerUrl = new URL("https://api.focusrite-novation.com/register");
+        registerUrl.searchParams.set("upn", serialNumber);
+
+        window.location.href = registerUrl.toString();
+    });
+
+    </script>
+
+</body>
+
+</html>

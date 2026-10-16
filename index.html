@@ -117,19 +117,17 @@
 
     </div>
 
-    <!-- AUTO-POPULATE SERIAL NUMBER AND REGISTER PRODUCT -->
-
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const serial = params.get("serial");
+    const params = new URLSearchParams(window.location.search);
+    const serial = params.get("serial");
 
-        if (serial !== null) {
-            document.getElementById("serialNumber").value = serial;
-        }
+    // Auto-populate the serial number from the URL
+    if (serial !== null) {
+        document.getElementById("serialNumber").value = serial;
+    }
 
-    
-    // Redirect to the registration page when clicked
-       document.getElementById("registerProduct").addEventListener("click", function () {
+    // Handle the Register Product button
+    document.getElementById("registerProduct").addEventListener("click", function () {
         const serialNumber = document.getElementById("serialNumber").value.trim();
 
         if (serialNumber === "") {
@@ -137,13 +135,21 @@
             return;
         }
 
+        // If the serial number starts with XF, go to adam.html
+        if (serialNumber.toUpperCase().startsWith("XF")) {
+            const adamUrl = new URL("adam.html", window.location.href);
+            adamUrl.searchParams.set("serial", serialNumber);
+            window.location.href = adamUrl.toString();
+            return;
+        }
+
+        // Otherwise, continue to the existing registration page
         const registerUrl = new URL("https://api.focusrite-novation.com/register");
         registerUrl.searchParams.set("upn", serialNumber);
 
         window.location.href = registerUrl.toString();
     });
-
-    </script>
+</script>
 
 </body>
 
