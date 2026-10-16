@@ -119,34 +119,37 @@
 
     <script>
     const params = new URLSearchParams(window.location.search);
-    const serial = params.get("serial");
+    const serial = params.get("serial") || "";
 
-    // Auto-populate the serial number from the URL
-    if (serial !== null) {
-        document.getElementById("serialNumber").value = serial;
-    }
+    const serialInput = document.getElementById("serialNumber");
+
+    // Populate the serial number if one is provided in the URL
+    serialInput.value = serial;
 
     // Handle the Register Product button
     document.getElementById("registerProduct").addEventListener("click", function () {
-        const serialNumber = document.getElementById("serialNumber").value.trim();
+        const serialNumber = serialInput.value.trim();
+        const prefix = serialNumber.toUpperCase();
 
-        if (serialNumber === "") {
-            alert("Please enter your serial number.");
+        // XF serial numbers go to adam.html
+        if (prefix.startsWith("XF")) {
+            window.location.href =
+                "https://thelizardmaster.github.io/Unboxing/adam.html?serial=" +
+                encodeURIComponent(serialNumber);
             return;
         }
 
-        // If the serial number starts with XF, go to adam.html
-        if (serialNumber.toUpperCase().startsWith("XF")) {
-            const adamUrl = new URL("adam.html", window.location.href);
-            adamUrl.searchParams.set("serial", serialNumber);
-            window.location.href = adamUrl.toString();
+        // Empty serial numbers and Z1 serial numbers go to index.html
+        if (serialNumber === "" || prefix.startsWith("Z1")) {
+            window.location.href =
+                "https://thelizardmaster.github.io/Unboxing?serial=" +
+                encodeURIComponent(serialNumber);
             return;
         }
 
-        // Otherwise, continue to the existing registration page
+        // All other serial numbers go to the existing registration page
         const registerUrl = new URL("https://api.focusrite-novation.com/register");
         registerUrl.searchParams.set("upn", serialNumber);
-
         window.location.href = registerUrl.toString();
     });
 </script>
