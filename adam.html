@@ -117,44 +117,32 @@
 
     </div>
 
-    <script>
-    const params = new URLSearchParams(window.location.search);
-    const serial = params.get("serial") || "";
+   <script>
+        const params = new URLSearchParams(window.location.search);
+        const serial = params.get("serial");
 
-    const serialInput = document.getElementById("serialNumber");
-    const registerButton = document.getElementById("registerProduct");
+        if (serial !== null) {
+            document.getElementById("serialNumber").value = serial;
+        }
 
-    // Populate the serial number from the URL.
-    serialInput.value = serial;
+    
+    // Redirect to the registration page when clicked
+       document.getElementById("registerProduct").addEventListener("click", function () {
+        const serialNumber = document.getElementById("serialNumber").value.trim();
 
-    // Handle the Register Product button.
-    registerButton.addEventListener("click", function () {
-        const serialNumber = serialInput.value.trim();
-        const prefix = serialNumber.toUpperCase();
-
-        // Require a serial number.
         if (serialNumber === "") {
             alert("Please enter your serial number.");
             return;
         }
 
-        // Redirect XF serial numbers to the ADAM Audio page.
-        if (prefix.startsWith("XF")) {
-            window.location.href =
-                "https://thelizardmaster.github.io/Unboxing/adam.html?serial=" +
-                encodeURIComponent(serialNumber);
-            return;
-        }
-
-        // All other serial numbers, including Z1, go to Focusrite.
-        const registerUrl = new URL(
-            "https://api.focusrite-novation.com/register"
-        );
-
+        const registerUrl = new URL("https://api.focusrite-novation.com/register");
         registerUrl.searchParams.set("upn", serialNumber);
+
         window.location.href = registerUrl.toString();
     });
-</script>
+
+    </script>
+
 
 </body>
 

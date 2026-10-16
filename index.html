@@ -145,20 +145,6 @@
             return;
         }
 
-        if (prefix.startsWith("XF")) {
-            window.location.href =
-                "https://thelizardmaster.github.io/Unboxing/adam.html?serial=" +
-                encodeURIComponent(serialNumber);
-            return;
-        }
-
-        if (prefix.startsWith("Z1")) {
-            window.location.href =
-                "https://thelizardmaster.github.io/Unboxing/?serial=" +
-                encodeURIComponent(serialNumber);
-            return;
-        }
-
         // All other serial numbers use the existing registration page
         const registerUrl = new URL(
             "https://api.focusrite-novation.com/register"
